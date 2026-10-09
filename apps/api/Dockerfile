@@ -1,0 +1,16 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY apps/api/package*.json ./apps/api/
+
+RUN npm ci
+
+COPY . .
+
+WORKDIR /app/apps/api
+
+RUN npm run build
+
+CMD ["npm", "run", "start"]
